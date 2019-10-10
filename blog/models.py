@@ -16,7 +16,7 @@ class Post(models.Model):
         settings.AUTH_USER_MODEL,  # The Django auth user model
         on_delete=models.PROTECT,  # Prevent posts from being deleted
         related_name='blog_posts',  # "This" on the user model
-        null=True,
+        null=False,
     )
 
     title = models.CharField(max_length=255)
@@ -28,9 +28,9 @@ class Post(models.Model):
 )
 
     slug = models.SlugField(
-         null=True,
+         null=False,
          unique_for_date='published',
-    
+
 
     )
     title = models.CharField(max_length=255)
