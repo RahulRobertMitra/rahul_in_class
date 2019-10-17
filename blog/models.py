@@ -1,6 +1,18 @@
 from django.conf import settings
 from django.db import models
 
+class Topic(models.Model):
+    name = models.CharField(
+       max_length=50,
+       unique= True
+    )
+    slug = models.SlugField(unique=True)
+
+    def __str__(self):
+        return self.name
+    class Meta:
+        ordering = ['name']
+
 class Post(models.Model):
     """
     Represents a blog post
@@ -32,6 +44,11 @@ class Post(models.Model):
          unique_for_date='published',
 
 
+
+    )
+    topics = models.ManyToManyField(
+        Topic,
+        related_name='blog_posts'
     )
     title = models.CharField(max_length=255)
     content = models.TextField()
