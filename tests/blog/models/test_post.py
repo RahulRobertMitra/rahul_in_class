@@ -5,7 +5,7 @@ import pytest
 
 from blog.models import Post
 
-pytestsmark = pytest.mark.django_db
+pytestmark = pytest.mark.django_db
 
 
 
@@ -13,14 +13,20 @@ def test_published_posts_only_returns_those_with_published_status():
     post = mommy.make('blog.Post',status=Post.PUBLISHED)
     mommy.make('blog.Post', status=Post.DRAFT)
     expected = [post]
+    result = list(Post.objects.published())
+    assert result == expected
 
-    assert (Post.objects.published()) == expected
+    #assert (Post.objects.published()) == expected
 
 def test_Draft_posts():
     post=mommy.make('blog.Post', status=Post.DRAFT)
     mommy.make('blog.Post', status=Post.PUBLISHED)
     expected =[post]
-    assert list(Post.objects.published()) == expected
+    result = list(Post.objects.draft())
+    assert result == expected
+
+
+    #assert list(Post.objects.published()) == expected
 
 @freeze_time(dt.datetime(2020,1,1), tz_offset=0)
 
