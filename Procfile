@@ -1,1 +1,1 @@
-web: gunicorn rahul_in_class.wsgi
+web: gunicorn blog_rrmitra.wsgi
